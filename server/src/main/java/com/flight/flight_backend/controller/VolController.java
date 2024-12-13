@@ -30,7 +30,7 @@ public class VolController {
     @GetMapping("/vol/{id}")
     Vol getVolById(@PathVariable Long id) {
         return volRepository.findById(id)
-                .orElseThrow(() -> new NotFound("VVVVV", id));
+                .orElseThrow(() -> new NotFound("VOL", id));
     }
 
     @PutMapping("/vol/{id}")

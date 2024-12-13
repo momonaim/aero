@@ -80,10 +80,22 @@ const reducer = (state, action) => {
 
     case 'UPDATE_USERS':
       return { ...state, users: action.payload };
+
+    case 'UPDATE_USER_CRUD':
+      return {
+        ...state, users: state.users.map((user) =>
+          user.id === action.payload.id ? { ...user, ...action.payload.updatedUser } : user)
+      };
+
     case 'DELETE_ROOM':
       return {
         ...state,
         rooms: state.rooms.filter((room) => room._id !== action.payload),
+      };
+    case 'DELETE_USER':
+      return {
+        ...state,
+        users: state.users.filter((user) => user.id !== action.payload),
       };
 
     default:

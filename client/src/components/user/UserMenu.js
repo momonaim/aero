@@ -3,6 +3,7 @@ import { ListItemIcon, Menu, MenuItem } from '@mui/material';
 import React from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { useValue } from '../../context/ContextProvider';
+import { useNavigate } from 'react-router-dom';
 // import useCheckToken from '../../hooks/useCheckToken';
 // import Profile from './Profile';
 
@@ -16,7 +17,7 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }) => {
     setAnchorUserMenu(null);
   };
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -46,7 +47,7 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }) => {
           </MenuItem>
         )}
         <MenuItem
-        // onClick={() => navigate('dashboard')}
+          onClick={() => navigate('dashboard')}
         >
           <ListItemIcon>
             <Dashboard fontSize="small" />

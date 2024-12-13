@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
 import {
   AppBar,
-  Avatar,
-  Badge,
   Box,
   Button,
   Container,
   IconButton,
   Toolbar,
-  Tooltip,
   Typography,
 } from '@mui/material';
-import { Lock, LockClock, Mail, Menu, Notifications } from '@mui/icons-material';
+import { Lock, LockClock, Menu } from '@mui/icons-material';
 
 import { useValue } from '../context/ContextProvider';
-// import UserIcons from './user/UserIcons';
-// import Sidebar from './sidebar/Sidebar';
 import photoURL from '../fsts.png'
-import UserMenu from './user/UserMenu';
 import UserIcons from './user/UserIcons';
+import Sidebar from './sidebar/Sidebar';
 
 
 const user = { name: 'user', photoURL }
@@ -29,8 +24,6 @@ const NavBar = () => {
   } = useValue();
 
 
-
-  const [anchorUserMenu, setAnchorUserMenu] = useState(null);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -81,37 +74,12 @@ const NavBar = () => {
               </Button>
             ) : (
               <UserIcons />
-              // <Box>
-              //   <IconButton size="large" color="inherit">
-              //     <Badge color="error" badgeContent={5}>
-              //       <Mail />
-              //     </Badge>
-              //   </IconButton>
-              //   <IconButton size="large" color="inherit">
-              //     <Badge color="error" badgeContent={20}>
-              //       <Notifications />
-              //     </Badge>
-              //   </IconButton>
-              //   <Tooltip title="Open User Settings">
-              //     <IconButton onClick={(e) => {
-              //       // currentUser = user
-              //       console.log(currentUser)
-              //       dispatch({ type: 'UPDATE_USER', payload: null })
-              //     }
-              //     }>
-              //       <Avatar src={currentUser?.photoURL} alt={currentUser?.name}>
-              //         {currentUser?.name?.charAt(0).toUpperCase()}
-              //       </Avatar>
-              //     </IconButton>
-              //   </Tooltip>
-              //   <UserMenu {...{ anchorUserMenu, setAnchorUserMenu }} />
-              // </Box>
             )}
           </Toolbar>
         </Container>
       </AppBar>
       <Toolbar />
-      {/* <Sidebar {...{ isOpen, setIsOpen }} /> */}
+      <Sidebar {...{ isOpen, setIsOpen }} />
     </>
   );
 };
