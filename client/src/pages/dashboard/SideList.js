@@ -1,10 +1,10 @@
 import {
+  Category,
   ChevronLeft,
   Dashboard,
+  EventSeat,
   Flight,
   Logout,
-  MarkChatUnread,
-  NotificationsActive,
   PeopleAlt,
 } from '@mui/icons-material';
 import {
@@ -28,6 +28,7 @@ import { useValue } from '../../context/ContextProvider';
 import Main from './main/Main';
 import Users from './users/Users';
 import Avions from './avions/Avions';
+import Reservation from './reservations/Reservation';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -106,16 +107,16 @@ const SideList = ({ open, setOpen }) => {
         component: <Avions {...{ setSelectedLink, link: '/dashboard/avions' }} />,
       },
       {
-        title: 'Requests',
-        icon: <NotificationsActive />,
-        link: '/dashboard/requests',
-        component: <Users {...{ setSelectedLink, link: '/dashboard/requests' }} />,
+        title: 'Reservations',
+        icon: <EventSeat />,
+        link: '/dashboard/reservations',
+        component: <Reservation {...{ setSelectedLink, link: '/dashboard/reservations' }} />,
       },
       {
-        title: 'Messages',
-        icon: <MarkChatUnread />,
-        link: '/dashboard/messages',
-        component: <Users {...{ setSelectedLink, link: '/dashboard/messages' }} />,
+        title: 'Categories',
+        icon: <Category />,
+        link: '/dashboard/categories',
+        component: <Category  {...{ setSelectedLink, link: '/dashboard/categories' }} />,
       },
     ],
     []

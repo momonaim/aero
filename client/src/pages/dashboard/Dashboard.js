@@ -12,6 +12,7 @@ import { Brightness4, Brightness7, Home, Menu } from '@mui/icons-material';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SideList from './SideList';
+import UserIcons from '../../components/user/UserIcons';
 
 const drawerWidth = 240;
 
@@ -86,6 +87,7 @@ export default function Dashboard() {
                         <IconButton onClick={() => setDark(!dark)}>
                             {dark ? <Brightness7 /> : <Brightness4 />}
                         </IconButton>
+                        <UserIcons></UserIcons>
                     </Toolbar>
                 </AppBar>
                 <SideList {...{ open, setOpen }} />

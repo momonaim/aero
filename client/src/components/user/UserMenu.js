@@ -27,7 +27,7 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }) => {
         onClose={handleCloseUserMenu}
         onClick={handleCloseUserMenu}
       >
-        {!currentUser.google && (
+        {!currentUser?.google && (
           <MenuItem
             onClick={() =>
               dispatch({
@@ -47,7 +47,7 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }) => {
           </MenuItem>
         )}
         <MenuItem
-          onClick={() => navigate('dashboard')}
+          onClick={() => navigate('/dashboard')}
         >
           <ListItemIcon>
             <Dashboard fontSize="small" />

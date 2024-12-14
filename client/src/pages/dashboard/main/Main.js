@@ -73,7 +73,7 @@ const Main = ({ setSelectedLink, link }) => {
                     }}
                 >
                     <Group sx={{ height: 100, width: 100, opacity: 0.3, mr: 1 }} />
-                    <Typography variant="h4">12</Typography>
+                    <Typography variant="h4">1000</Typography>
                 </Box>
             </Paper>
             <Paper elevation={3} sx={{ p: 3 }}>
@@ -86,7 +86,7 @@ const Main = ({ setSelectedLink, link }) => {
                     }}
                 >
                     <MapsHomeWork sx={{ height: 100, width: 100, opacity: 0.3, mr: 1 }} />
-                    <Typography variant="h4">11</Typography>
+                    <Typography variant="h4">1000</Typography>
                 </Box>
             </Paper>
 
