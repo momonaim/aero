@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { Swal } from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 const BookingDetails = () => {
     const { id } = useParams(); // Récupérer l'identifiant du vol depuis l'URL
@@ -37,11 +37,11 @@ const BookingDetails = () => {
             }));
             setPassengerSummary(newSummary);
             console.log('handlePassengerSubmit', newSummary);
-            // Swal.fire({
-            //     title: "Good job!",
-            //     text: "Booking Submitted!",
-            //     icon: "success"
-            // });
+            Swal.fire({
+                title: "Good job!",
+                text: "Booking Submitted!",
+                icon: "success"
+            });
             setNewPassengers([{ firstName: '', lastName: '', passportNumber: '' }]); // Réinitialiser le formulaire
         } else {
             alert("Veuillez remplir tous les champs des passagers.");

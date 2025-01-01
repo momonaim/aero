@@ -6,6 +6,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Grid,
+  Grid2,
   IconButton,
   TextField,
 } from '@mui/material';
@@ -80,47 +82,58 @@ const Login = () => {
           <Close />
         </IconButton>
       </DialogTitle>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <DialogContent dividers>
           <DialogContentText>
             Please fill your information in the fields below:
           </DialogContentText>
-          {isRegister && (
-            <TextField
-              autoFocus
-              margin="normal"
-              variant="standard"
-              id="name"
-              label="Name"
-              type="text"
-              fullWidth
-              inputRef={nameRef}
-              inputProps={{ minLength: 2 }}
-              required
-            />
-          )}
-          <TextField
-            autoFocus={!isRegister}
-            margin="normal"
-            variant="standard"
-            id="email"
-            label="Email"
-            type="email"
-            fullWidth
-            inputRef={emailRef}
-            required
-          />
-          <PasswordField {...{ passwordRef }} />
-          {isRegister && (
-            <PasswordField
-              passwordRef={confirmPasswordRef}
-              id="confirmPassword"
-              label="Confirm Password"
-            />
-          )}
+          <Grid container spacing={2}>
+            {isRegister && (
+              <Grid item xs={12}>
+                <TextField
+                  autoFocus
+                  autoComplete="off"
+                  margin="normal"
+                  variant="outlined"
+                  id="name"
+                  label="Name"
+                  type="text"
+                  fullWidth
+                  inputRef={nameRef}
+                  inputProps={{ minLength: 2 }}
+                  required
+                />
+              </Grid>
+            )}
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="off"
+                margin="normal"
+                variant="outlined"
+                id="email"
+                label="Email"
+                type="email"
+                fullWidth
+                inputRef={emailRef}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <PasswordField {...{ passwordRef }} />
+            </Grid>
+            {isRegister && (
+              <Grid item xs={12}>
+                <PasswordField
+                  passwordRef={confirmPasswordRef}
+                  id="confirmPassword"
+                  label="Confirm Password"
+                />
+              </Grid>
+            )}
+          </Grid>
         </DialogContent>
         <DialogActions sx={{ px: '19px' }}>
-          <Button type="submit" variant="contained" endIcon={<Send />}>
+          <Button type="submit" variant="contained" fullWidth endIcon={<Send />}>
             Submit
           </Button>
         </DialogActions>

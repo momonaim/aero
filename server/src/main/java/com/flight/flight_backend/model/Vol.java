@@ -8,18 +8,23 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 @Data
 @Entity
 public class Vol {
 
-    // LOMBOK LOMBOK LOMBOKLOMBOKLOMBOKLOMBOK
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date DateDepart;
-    private Date DateArrivee;
+    @Temporal(TemporalType.DATE)
+    private Date dateDepart;
+    @Temporal(TemporalType.DATE)
+    private Date dateArrivee;
+    private String villeDepart;
+    private String villeArrivee;
     private int CA_dispo;
     private int CE_dispo;
     private int CP_dispo;

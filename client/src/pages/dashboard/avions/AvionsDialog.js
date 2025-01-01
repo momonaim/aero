@@ -17,7 +17,7 @@ import { updateUser, addUser } from '../../../actions/user';
 import { useValue } from '../../../context/ContextProvider';
 import Swal from 'sweetalert2';
 
-const UserDialog = ({ open, onClose, user, option }) => {
+const AvionsDialog = ({ open, onClose, user, option }) => {
   const {
     dispatch,
   } = useValue();
@@ -28,7 +28,7 @@ const UserDialog = ({ open, onClose, user, option }) => {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('USER');
-  const [sexe, setSexe] = useState('M');
+  const [sexe, setSexe] = useState('');
   const [password, setPassword] = useState('');
 
   // Populate form when editing a user
@@ -41,7 +41,7 @@ const UserDialog = ({ open, onClose, user, option }) => {
       setPhone(user.phone || '');
       setEmail(user.email || '');
       setRole(user.role || 'USER');
-      setSexe(user.sexe || 'M');
+      setSexe(user.sexe || '');
     } else {
       // Clear fields for add mode
       setId('');
@@ -51,7 +51,7 @@ const UserDialog = ({ open, onClose, user, option }) => {
       setPhone('');
       setEmail('');
       setRole('USER');
-      setSexe('M');
+      setSexe('');
       setPassword('');
     }
   }, [user, option]);
@@ -82,7 +82,7 @@ const UserDialog = ({ open, onClose, user, option }) => {
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>{option === 'edit' ? 'Edit User' : 'Add User'}</DialogTitle>
+      <DialogTitle>{option === 'edit' ? 'Edit Airplane' : 'Add Airplane'}</DialogTitle>
       <DialogContent>
         <DialogContentText>
           {option === 'edit'
@@ -147,18 +147,13 @@ const UserDialog = ({ open, onClose, user, option }) => {
             <MenuItem value="ADMIN">ADMIN</MenuItem>
           </Select>
         </FormControl>
-        <FormControl fullWidth margin="dense">
-          <InputLabel id="sexe-label">Gender</InputLabel>
-          <Select
-            labelId="sexe-label"
-            value={sexe}
-            onChange={(e) => setSexe(e.target.value)}
-            required
-          >
-            <MenuItem value="M">M.</MenuItem>
-            <MenuItem value="Mme">Mme</MenuItem>
-          </Select>
-        </FormControl>
+        <TextField
+          margin="dense"
+          label="Gender"
+          fullWidth
+          value={sexe}
+          onChange={(e) => setSexe(e.target.value)}
+        />
         {option === 'add' && (
           <TextField
             margin="dense"
@@ -177,7 +172,6 @@ const UserDialog = ({ open, onClose, user, option }) => {
         </Button>
         <Button
           onClick={handleSave}
-          variant="contained"
           color="primary"
           disabled={!username || !firstname || !email || (option === 'add' && !password)}
         >
@@ -188,4 +182,4 @@ const UserDialog = ({ open, onClose, user, option }) => {
   );
 };
 
-export default UserDialog;
+export default AvionsDialog;

@@ -1,6 +1,7 @@
 package com.flight.flight_backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import com.flight.flight_backend.exeption.NotFound;
@@ -8,6 +9,10 @@ import com.flight.flight_backend.exeption.VolNotFoundException;
 import com.flight.flight_backend.model.Vol;
 import com.flight.flight_backend.repository.VolRepository;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -16,6 +21,27 @@ public class VolController {
 
     @Autowired
     private VolRepository volRepository;
+
+    @GetMapping("/vols/search")
+    public List<Vol> searchVols(
+            @RequestParam("villeDepart") String villeDepart,
+            @RequestParam("villeArrivee") String villeArrivee) {
+        return volRepository.searchVols(villeDepart, villeArrivee);
+    }
+
+    @GetMapping("/find")
+    public List<Vol> findVol(
+            @RequestParam("dateDepart") String dateDepart) throws ParseException {
+        return volRepository.findByDateDepart(new SimpleDateFormat("yyyy-MM-dd").parse(dateDepart));
+    }
+
+    @GetMapping("/findbydatedep")
+    public List<Vol> findByDateDepartAndVilleDepartAndVilleArrivee(
+            @RequestParam("dateDepart") String dateDepart, @RequestParam("villeDepart") String villeDepart,
+            @RequestParam("villeArrivee") String villeArrivee) throws ParseException {
+        return volRepository.findByDateDepartAndVilleDepartAndVilleArrivee(
+                new SimpleDateFormat("yyyy-MM-dd").parse(dateDepart), villeDepart, villeArrivee);
+    }
 
     @PostMapping("/vol")
     Vol newVol(@RequestBody Vol newVol) {

@@ -1,4 +1,4 @@
-import { Group, MapsHomeWork } from '@mui/icons-material';
+import { FlightTakeoff, Group, MapsHomeWork } from '@mui/icons-material';
 import { Box, CircularProgress, Paper, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useValue } from '../../../context/ContextProvider';
@@ -72,7 +72,7 @@ const Main = ({ setSelectedLink, link }) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Group sx={{ height: 100, width: 100, opacity: 0.3, mr: 1 }} />
+                    <FlightTakeoff sx={{ height: 100, width: 100, opacity: 0.3, mr: 1 }} />
                     <Typography variant="h4">1000</Typography>
                 </Box>
             </Paper>

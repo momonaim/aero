@@ -2,20 +2,13 @@ import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, MenuItem, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-// const categories = [
-//   { label: "Adulte", reduction: 0 },
-//   { label: "Jeune (12-17 ans)", reduction: 0.1 },
-//   { label: "Enfant (2-11 ans)", reduction: 0.2 },
-//   { label: "Bébé (moins de 2 ans)", reduction: 0.5 },
-// ];
-
 const PassengerDialog = ({ open, onClose, onPassengerUpdate, categories }) => {
   const [passengers, setPassengers] = useState([]);
+  const [error, setError] = useState(false);  // To manage error state
 
   const handleAddPassenger = () => {
     setPassengers([...passengers, { category: '', reduction: 0 }]);
   };
-
 
   const handleCategoryChange = (index, event) => {
     const newPassengers = [...passengers];
@@ -34,6 +27,15 @@ const PassengerDialog = ({ open, onClose, onPassengerUpdate, categories }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Check if all passengers have a selected category
+    const isValid = passengers.every((passenger) => passenger.category !== '');
+
+    if (!isValid) {
+      setError(true);  // Set error state if any passenger doesn't have a category
+      return;
+    }
+
     console.log("Passengers Data:", passengers);
     onClose();
   };
@@ -51,6 +53,9 @@ const PassengerDialog = ({ open, onClose, onPassengerUpdate, categories }) => {
               select
               fullWidth
               margin="dense"
+              required  // Make the category field required
+              error={error && passenger.category === ''} // Show error if field is empty
+              helperText={error && passenger.category === '' ? "Veuillez sélectionner une catégorie" : ""}
             >
               {categories.map((category) => (
                 <MenuItem key={category.label} value={category.label}>

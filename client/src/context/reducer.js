@@ -87,6 +87,12 @@ const reducer = (state, action) => {
           user.id === action.payload.id ? { ...user, ...action.payload.updatedUser } : user)
       };
 
+    case 'ADD_USER_CRUD':
+      return {
+        ...state,
+        users: [...state.users, action.payload],
+      };
+
     case 'DELETE_ROOM':
       return {
         ...state,

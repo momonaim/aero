@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography, Button, IconButton } from '@mui/material';
+import { Box, Typography, Button, IconButton, Dialog, DialogTitle, DialogContent, Table, TableBody, TableCell } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import { useValue } from '../../../context/ContextProvider';
 import { getUsers, updateUser, deleteUser } from '../../../actions/user';
-import { GridDeleteIcon } from '@mui/x-data-grid';
-import { ModeEdit, Visibility } from '@mui/icons-material';
+import { Close, DeleteForever, ModeEdit, Visibility } from '@mui/icons-material';
 import UserDialog from './UsersDialog';
 import Swal from 'sweetalert2'
+import { TableRow } from '@mui/material';
 
 
 const Users = ({ setSelectedLink, link }) => {
@@ -24,21 +24,17 @@ const Users = ({ setSelectedLink, link }) => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
     const [dialogOption, setDialogOption] = useState('');
+    const [viewOpen, setViewOpen] = useState(false);
 
     const handleDialogOpen = (option, user = null) => {
         setDialogOption(option);
-        setCurrentUser(user);
+        setCurrentUser(option === 'edit' ? user : null);
         setDialogOpen(true);
     };
 
     const handleDialogClose = () => {
         setDialogOpen(false);
         setCurrentUser(null);
-    };
-
-    const handleEdit = (user) => {
-        const updatedUser = { ...user, firstname: 'Updated Name' };
-        updateUser(updatedUser, user.id, dispatch);
     };
 
     const handleDelete = (id) => {
@@ -60,13 +56,16 @@ const Users = ({ setSelectedLink, link }) => {
                 });
             }
         });
-        // if (window.confirm('Are you sure you want to delete this user?')) {
-        //     deleteUser(id, dispatch);
-        // }
     };
     const handleView = (user) => {
-        // TO ADD VIEWWWWWWWW
+        setCurrentUser(user);
+        setViewOpen(true);
         console.log(user);
+    };
+
+    const closeView = () => {
+        setViewOpen(false);
+        setCurrentUser(null);
     };
 
     const columns = [
@@ -115,7 +114,7 @@ const Users = ({ setSelectedLink, link }) => {
                                 onClick={() => handleDelete(user.id)}
                                 sx={{ mr: 1 }}
                             >
-                                <GridDeleteIcon />
+                                <DeleteForever />
                             </IconButton>
                             <IconButton
                                 color="default"
@@ -170,6 +169,35 @@ const Users = ({ setSelectedLink, link }) => {
                 options={options}
             />
             <UserDialog open={dialogOpen} onClose={handleDialogClose} user={currentUser} option={dialogOption} />
+            <Dialog open={viewOpen} onClose={closeView} fullWidth maxWidth="sm">
+                <DialogTitle>User Details
+                    <IconButton
+                        aria-label="close"
+                        onClick={closeView}
+                        sx={{ position: 'absolute', right: 8, top: 8 }}
+                    >
+                        <Close />
+                    </IconButton>
+                </DialogTitle>
+
+                <DialogContent>
+                    <Table>
+                        <TableBody>
+                            {currentUser &&
+                                Object.entries(currentUser)
+                                    .filter(([key]) => key !== 'password') // Remove the password field
+                                    .map(([key, value]) => (
+                                        <TableRow key={key}>
+                                            <TableCell sx={{ fontWeight: 'bold', color: 'gray' }}>
+                                                {key}
+                                            </TableCell>
+                                            <TableCell>{value || 'N/A'}</TableCell>
+                                        </TableRow>
+                                    ))}
+                        </TableBody>
+                    </Table>
+                </DialogContent>
+            </Dialog>
         </Box>
 
 

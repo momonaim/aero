@@ -40,11 +40,29 @@ export const deleteUser = async (id, dispatch) => {
 
 export const updateUser = async (updatedUser, id, dispatch) => {
     try {
-        const { data } = await axios.put(`http://localhost:8080/user/${id}`, updatedUser);
+        const { data } = await axios.put(`http://localhost:8080/user/${id}`, updatedUser, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
         dispatch({ type: 'UPDATE_USER_CRUD', payload: { id: id, updatedUser: data } });
         return true;
     } catch (error) {
         console.error('Failed to update user:', error);
+        return false;
+    }
+};
+export const addUser = async (newUser, dispatch) => {
+    try {
+        const { data } = await axios.post('http://localhost:8080/user', newUser, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        dispatch({ type: 'ADD_USER_CRUD', payload: data });
+        return true;
+    } catch (error) {
+        console.error('Failed to add user:', error);
         return false;
     }
 };
