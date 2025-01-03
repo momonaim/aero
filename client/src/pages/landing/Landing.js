@@ -13,8 +13,11 @@ import {
 } from "@mui/material";
 import Swal from "sweetalert2";
 import PassengerDialog from "./PassengerDialog";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = ({ onFlightSelect }) => {
+    const navigate = useNavigate();
     const categories = [
         { label: "Adulte", reduction: 0 },
         { label: "Jeune (12-17 ans)", reduction: 0.1 },
@@ -29,7 +32,7 @@ const LandingPage = ({ onFlightSelect }) => {
     const [selectedClass, setSelectedClass] = useState("");
 
     const classesOptions = ["Économique", "Affaire", "Première"];
-    const cities = ["Paris", "Londres", "New York", "Tokyo", "Berlin"];
+    const cities = ["CASA", "PARIS", "New York", "Tokyo", "Berlin", "RABAT", "MADRID"];
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -42,8 +45,37 @@ const LandingPage = ({ onFlightSelect }) => {
         setDialogOpen(false);
     };
 
-    const handleSearch = () => {
-        if (!departure || !arrival || !date || !passengerSummary.length) {
+    // const handleSearch = () => {
+    //     if (!departure || !arrival || !date || !passengerSummary.length) {
+    //         Swal.fire({
+    //             icon: "warning",
+    //             title: "Champ(s) manquant(s)",
+    //             text: "Veuillez remplir tous les champs avant de lancer la recherche.",
+    //             confirmButtonText: "OK",
+    //         });
+    //         return;
+    //     }
+
+    //     const searchDetails = {
+    //         departure,
+    //         arrival,
+    //         date,
+    //         passengerSummary: passengerSummary,
+    //     };
+
+    //     console.log("Search Details:", searchDetails);
+
+    //     const mockFlight = {
+    //         id: 1,
+    //         name: "Vol Test",
+    //         class: "BUSINESS",
+    //         details: "Détails du vol",
+    //         passengerSummary: passengerSummary,
+    //     };
+    //     onFlightSelect(mockFlight);
+    // };
+    const handleSearch = async () => {
+        if (!departure || !selectedClass || !arrival || !date || !passengerSummary.length) {
             Swal.fire({
                 icon: "warning",
                 title: "Champ(s) manquant(s)",
@@ -53,24 +85,30 @@ const LandingPage = ({ onFlightSelect }) => {
             return;
         }
 
-        const searchDetails = {
-            departure,
-            arrival,
-            date,
-            passengerSummary: passengerSummary,
-        };
+        try {
+            const response = await axios.get("http://localhost:8080/vols/search", {
+                params: {
+                    dateDepart: date,
+                    villeDepart: departure,
+                    villeArrivee: arrival,
+                },
+            });
+            console.log(response)
 
-        console.log("Search Details:", searchDetails);
-
-        const mockFlight = {
-            id: 1,
-            name: "Vol Test",
-            class: "BUSINESS",
-            details: "Détails du vol",
-            passengerSummary: passengerSummary,
-        };
-        onFlightSelect(mockFlight);
+            navigate("/flights", {
+                state: { flights: response.data, passengerSummary: passengerSummary, searchDetails: { departure, arrival, date, selectedClass } },
+            });
+        } catch (error) {
+            console.error("Error fetching flights:", error);
+            Swal.fire({
+                icon: "error",
+                title: "Erreur",
+                text: "Impossible de récupérer les vols disponibles.",
+                confirmButtonText: "OK",
+            });
+        }
     };
+
 
     return (
         <Box p={isMobile ? 2 : 3}>
