@@ -12,10 +12,8 @@ import {
     useMediaQuery,
     Avatar,
     Rating,
-    IconButton,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 import LandingPage from "../landing/Landing";
 
 const HeroSection = styled(Box)(({ theme }) => ({
@@ -104,6 +102,7 @@ const Hero = ({ onFlightSelect }) => {
 
     return (
         <Box>
+            {/* Hero Section */}
             <HeroSection>
                 <Container maxWidth="lg">
                     <Grid container justifyContent="center" alignItems="center">
@@ -113,6 +112,11 @@ const Hero = ({ onFlightSelect }) => {
                                     variant={isMobile ? "h5" : "h4"}
                                     gutterBottom
                                     align="center"
+                                    sx={{
+                                        fontWeight: "bold",
+                                        color: "white",
+                                        textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                                    }}
                                 >
                                     Find Your Perfect Flight
                                 </Typography>
@@ -123,6 +127,7 @@ const Hero = ({ onFlightSelect }) => {
                 </Container>
             </HeroSection>
 
+            {/* Popular Destinations */}
             <Container maxWidth="lg" sx={{ my: 8 }}>
                 <Typography variant={isMobile ? "h5" : "h4"} gutterBottom align="center">
                     Popular Destinations
@@ -130,7 +135,7 @@ const Hero = ({ onFlightSelect }) => {
                 <Grid container spacing={4}>
                     {destinations.map((destination) => (
                         <Grid item xs={12} sm={6} md={4} key={destination.id}>
-                            <Card>
+                            <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
                                 <CardMedia
                                     component="img"
                                     height="200"
@@ -167,6 +172,7 @@ const Hero = ({ onFlightSelect }) => {
                 </Grid>
             </Container>
 
+            {/* Customer Testimonials */}
             <Container maxWidth="lg" sx={{ my: 8 }}>
                 <Typography variant={isMobile ? "h5" : "h4"} gutterBottom align="center">
                     What Our Customers Say
@@ -174,7 +180,7 @@ const Hero = ({ onFlightSelect }) => {
                 <Grid container spacing={4}>
                     {testimonials.map((testimonial) => (
                         <Grid item xs={12} sm={6} md={4} key={testimonial.id}>
-                            <Card sx={{ height: "100%" }}>
+                            <Card sx={{ height: "100%", boxShadow: 3, borderRadius: 2 }}>
                                 <CardContent>
                                     <Box
                                         sx={{
@@ -202,6 +208,7 @@ const Hero = ({ onFlightSelect }) => {
                 </Grid>
             </Container>
 
+            {/* Call to Action */}
             <Box sx={{ bgcolor: "primary.main", color: "white", py: 8 }}>
                 <Container maxWidth="lg">
                     <Typography
@@ -226,59 +233,8 @@ const Hero = ({ onFlightSelect }) => {
                     </Box>
                 </Container>
             </Box>
-
-            <Box sx={{ bgcolor: "grey.900", color: "white", py: 6 }}>
-                <Container maxWidth="lg">
-                    <Grid container spacing={4}>
-                        <Grid item xs={12} md={4}>
-                            <Typography variant="h6" gutterBottom>
-                                About Us
-                            </Typography>
-                            <Typography variant="body2">
-                                We are committed to providing the best flight booking experience.
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                            <Typography variant="h6" gutterBottom>
-                                Quick Links
-                            </Typography>
-                            <Typography variant="body2" component="div">
-                                <Box component="span" display="block" mb={1}>
-                                    Terms of Service
-                                </Box>
-                                <Box component="span" display="block" mb={1}>
-                                    Privacy Policy
-                                </Box>
-                                <Box component="span" display="block">
-                                    Contact Us
-                                </Box>
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                            <Typography variant="h6" gutterBottom>
-                                Follow Us
-                            </Typography>
-                            <Box>
-                                <IconButton color="inherit">
-                                    <Facebook />
-                                </IconButton>
-                                <IconButton color="inherit">
-                                    <Twitter />
-                                </IconButton>
-                                <IconButton color="inherit">
-                                    <Instagram />
-                                </IconButton>
-                                <IconButton color="inherit">
-                                    <LinkedIn />
-                                </IconButton>
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Box>
         </Box>
     );
 };
-
 
 export default Hero;

@@ -112,7 +112,7 @@ const LandingPage = ({ onFlightSelect }) => {
 
     return (
         <Box p={isMobile ? 2 : 3}>
-            <h1 style={{ fontSize: isMobile ? "1.5rem" : "2rem", textAlign: "center" }}>Rechercher un vol</h1>
+            {/* <h1 style={{ fontSize: isMobile ? "1.5rem" : "2rem", textAlign: "center" }}>Rechercher un vol</h1> */}
             <Grid container spacing={2} mb={2}>
                 <Grid item xs={12} sm={6} md={4}>
                     <FormControl fullWidth margin="dense">

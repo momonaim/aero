@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Lock, LockClock, Menu } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 import { useValue } from '../context/ContextProvider';
 import photoURL from '../fsts.png';
@@ -66,11 +67,26 @@ const NavBar = () => {
                 gap: 2,
               }}
             >
-              <Button color="inherit">Home</Button>
-              <Button color="inherit">Flights</Button>
-              <Button color="inherit">Destinations</Button>
-              <Button color="inherit">About</Button>
-              <Button color="inherit">Contact</Button>
+              <Button component={Link} to="/" color="inherit">
+                Home
+              </Button>
+              {currentUser && (
+                <Button component={Link} to="/myflights" color="warning" variant='contained'>
+                  My Flights
+                </Button>
+              )}
+              <Button component={Link} to="/myflights" color="inherit">
+                My Flights
+              </Button>
+              <Button component={Link} to="/destinations" color="inherit">
+                Destinations
+              </Button>
+              <Button component={Link} to="/about" color="inherit">
+                About
+              </Button>
+              <Button component={Link} to="/contact" color="inherit">
+                Contact
+              </Button>
             </Box>
 
             {/* Space between buttons */}
